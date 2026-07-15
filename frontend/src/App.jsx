@@ -21,7 +21,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<RootRedirect />} />
         <Route path="/login" element={<LoginPage />} />
-        <Route
+         <Route
           path="/dashboard"
           element={
             <ProtectedRoute allowedRoles={["EMPLOYEE"]}>
