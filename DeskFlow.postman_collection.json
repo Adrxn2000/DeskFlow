@@ -1,0 +1,149 @@
+{
+  "info": {
+    "name": "DeskFlow API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000" },
+    { "key": "employeeToken", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "ticketId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "Login - Employee",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "const data = pm.response.json();",
+              "if (data.token) { pm.collectionVariables.set('employeeToken', data.token); }"
+            ]}
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"employee@deskflow.com\",\n  \"password\": \"password123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Login - Admin",
+          "event": [{
+            "listen": "test",
+            "script": { "exec": [
+              "const data = pm.response.json();",
+              "if (data.token) { pm.collectionVariables.set('adminToken', data.token); }"
+            ]}
+          }],
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@deskflow.com\",\n  \"password\": \"password123\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+          }
+        },
+        {
+          "name": "Login - Invalid credentials (401 check)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"employee@deskflow.com\",\n  \"password\": \"wrong\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Tickets",
+      "item": [
+        {
+          "name": "Create Ticket (Employee)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{employeeToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Laptop won't power on\",\n  \"description\": \"No lights, no fan noise\",\n  \"priority\": \"HIGH\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/tickets", "host": ["{{baseUrl}}"], "path": ["api", "tickets"] }
+          }
+        },
+        {
+          "name": "Create Ticket - Forbidden as Admin (403 check)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Should fail\",\n  \"description\": \"Admins cannot create\",\n  \"priority\": \"LOW\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/tickets", "host": ["{{baseUrl}}"], "path": ["api", "tickets"] }
+          }
+        },
+        {
+          "name": "Get Tickets (Employee - own only)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{employeeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/tickets", "host": ["{{baseUrl}}"], "path": ["api", "tickets"] }
+          }
+        },
+        {
+          "name": "Get Tickets (Admin - all)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/tickets", "host": ["{{baseUrl}}"], "path": ["api", "tickets"] }
+          }
+        },
+        {
+          "name": "Get Tickets - Unauthorized (401 check)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/tickets", "host": ["{{baseUrl}}"], "path": ["api", "tickets"] }
+          }
+        },
+        {
+          "name": "Update Ticket Status (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"IN_PROGRESS\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/tickets/{{ticketId}}", "host": ["{{baseUrl}}"], "path": ["api", "tickets", "{{ticketId}}"] }
+          }
+        },
+        {
+          "name": "Update Ticket Status - Forbidden as Employee (403 check)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{employeeToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"RESOLVED\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/tickets/{{ticketId}}", "host": ["{{baseUrl}}"], "path": ["api", "tickets", "{{ticketId}}"] }
+          }
+        },
+        {
+          "name": "Update Ticket Status - Not found (404 check)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"status\": \"RESOLVED\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/tickets/999999", "host": ["{{baseUrl}}"], "path": ["api", "tickets", "999999"] }
+          }
+        }
+      ]
+    }
+  ]
+}
