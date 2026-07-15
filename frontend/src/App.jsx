@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
+import EmployeeDashboardPage from "./pages/EmployeeDashboardPage";
+
 
 function RootRedirect() {
   const { user, loading } = useAuth();
@@ -25,7 +27,7 @@ export default function App() {
           path="/dashboard"
           element={
             <ProtectedRoute allowedRoles={["EMPLOYEE"]}>
-              <PlaceholderDashboard label="Employee" />
+              <EmployeeDashboardPage />
             </ProtectedRoute>
           }
         />
