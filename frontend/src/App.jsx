@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import LoginPage from "./pages/LoginPage";
 import EmployeeDashboardPage from "./pages/EmployeeDashboardPage";
+import AdminDashboardPage from "./pages/AdminDashboardPage";
 
 
 function RootRedirect() {
@@ -35,7 +36,7 @@ export default function App() {
           path="/admin"
           element={
             <ProtectedRoute allowedRoles={["ADMIN"]}>
-              <PlaceholderDashboard label="Admin" />
+              <AdminDashboardPage />
             </ProtectedRoute>
           }
         />
