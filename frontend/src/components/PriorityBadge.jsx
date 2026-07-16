@@ -1,25 +1,16 @@
 import React from "react";
 
-const COLORS = {
-  LOW: "#4c8f5f",
-  MEDIUM: "#b8860b",
-  HIGH: "#c53030",
-  URGENT: "#c53030",
-};
 
+const MAP = {
+  LOW: ["var(--low)", "var(--low-bg)"],
+  MEDIUM: ["var(--medium)", "var(--medium-bg)"],
+  HIGH: ["var(--high)", "var(--high-bg)"],
+  URGENT: ["var(--high)", "var(--high-bg)"],
+};
 export default function PriorityBadge({ priority }) {
-  const color = COLORS[priority] || "#666";
+  const [color, bg] = MAP[priority] || ["#666", "#eee"];
   return (
-    <span
-      style={{
-        fontSize: 12,
-        fontWeight: 600,
-        padding: "3px 10px",
-        borderRadius: 12,
-        color: "#fff",
-        background: color,
-      }}
-    >
+    <span style={{ fontSize: 12, fontWeight: 700, padding: "4px 12px", borderRadius: 999, color, background: bg }}>
       {priority}
     </span>
   );

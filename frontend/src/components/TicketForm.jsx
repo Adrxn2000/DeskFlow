@@ -18,28 +18,28 @@ export default function TicketForm({ onSubmit, submitting }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ border: "1px solid #ddd", padding: 16, borderRadius: 8 }}>
+    <form onSubmit={handleSubmit} style={{ background: "var(--panel)", borderRadius: "var(--radius)", boxShadow: "var(--shadow)", padding: 22 }}>
       <h3>Submit a new request</h3>
 
       <label>Title</label><br />
       <input
         value={form.title}
         onChange={(e) => setForm({ ...form, title: e.target.value })}
-        style={{ width: "100%", padding: 8, marginBottom: 10 }}
+        style={{ width: "100%", padding: "10px 12px", marginBottom: 12, border: "1px solid var(--border)", borderRadius: 9, fontSize: 14 }}
       /><br />
 
       <label>Description</label><br />
       <textarea
         value={form.description}
         onChange={(e) => setForm({ ...form, description: e.target.value })}
-        style={{ width: "100%", padding: 8, marginBottom: 10, minHeight: 80 }}
+        style={{ width: "100%", padding: "10px 12px", marginBottom: 12, border: "1px solid var(--border)", borderRadius: 9, fontSize: 14, minHeight: 80 }}
       /><br />
 
       <label>Priority</label><br />
       <select
         value={form.priority}
         onChange={(e) => setForm({ ...form, priority: e.target.value })}
-        style={{ width: "100%", padding: 8, marginBottom: 10 }}
+        style={{ width: "100%", padding: "10px 12px", marginBottom: 12, border: "1px solid var(--border)", borderRadius: 9, fontSize: 14 }}
       >
         <option value="LOW">Low</option>
         <option value="MEDIUM">Medium</option>
@@ -48,7 +48,7 @@ export default function TicketForm({ onSubmit, submitting }) {
 
       {error && <p style={{ color: "red" }}>{error}</p>}
 
-      <button type="submit" disabled={submitting} style={{ padding: "8px 16px" }}>
+      <button type="submit" disabled={submitting} style={{ marginTop: 4, width: "100%", padding: "11px 0", background: "var(--accent)", color: "#fff", border: "none", borderRadius: 10, fontWeight: 700, fontSize: 14 }}>
         {submitting ? "Submitting..." : "Submit request"}
       </button>
     </form>

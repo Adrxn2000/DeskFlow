@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import Sidebar from "../components/Sidebar";
 import TicketForm from "../components/TicketForm";
 import TicketList from "../components/TicketList";
 import * as ticketApi from "../api/ticketApi";
@@ -10,15 +9,12 @@ export default function EmployeeDashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [submitting, setSubmitting] = useState(false);
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
 
   const loadTickets = useCallback(async () => {
     setLoading(true);
     setError("");
     try {
-      const data = await ticketApi.fetchTickets();
-      setTickets(data);
+      setTickets(await ticketApi.fetchTickets());
     } catch (err) {
       setError(err.response?.data?.message || "Failed to load tickets");
     } finally {
@@ -26,9 +22,7 @@ export default function EmployeeDashboardPage() {
     }
   }, []);
 
-  useEffect(() => {
-    loadTickets();
-  }, [loadTickets]);
+  useEffect(() => { loadTickets(); }, [loadTickets]);
 
   async function handleCreate(form) {
     setSubmitting(true);
@@ -42,25 +36,20 @@ export default function EmployeeDashboardPage() {
     }
   }
 
-  function handleLogout() {
-    logout();
-    navigate("/login");
-  }
-
   return (
-    <div style={{ maxWidth: 800, margin: "40px auto", padding: "0 16px" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <h2>My Tickets</h2>
-        <div>
-          <span style={{ marginRight: 12 }}>{user?.name}</span>
-          <button onClick={handleLogout}>Log out</button>
-        </div>
-      </div>
+    <div style={{ display: "flex" }}>
+      <Sidebar />
+      <main style={{ marginLeft: 240, padding: "32px 40px", flex: 1 }}>
+        <h1 style={{ fontSize: 24, marginBottom: 4 }}>My Tickets</h1>
+        <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 24 }}>
+          Track and submit your IT support requests.
+        </p>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20, marginTop: 20 }}>
-        <TicketList tickets={tickets} loading={loading} error={error} isAdmin={false} />
-        <TicketForm onSubmit={handleCreate} submitting={submitting} />
-      </div>
+        <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 24, alignItems: "start" }}>
+          <TicketList tickets={tickets} loading={loading} error={error} isAdmin={false} />
+          <TicketForm onSubmit={handleCreate} submitting={submitting} />
+        </div>
+      </main>
     </div>
   );
 }
