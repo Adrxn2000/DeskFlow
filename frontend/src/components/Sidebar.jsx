@@ -11,7 +11,7 @@ export default function Sidebar() {
   const navigate = useNavigate();
   const { theme } = useTheme();
   const nav = user?.role === "ADMIN" ? ADMIN_NAV : EMPLOYEE_NAV;
-  const { theme, toggleTheme } = useTheme();
+  const { toggleTheme } = useTheme();
 
   return (
     <aside style={styles.sidebar}>
