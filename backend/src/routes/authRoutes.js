@@ -1,5 +1,5 @@
 const express = require("express");
-const { login } = require("../controllers/authController");
+const { login, register } = require("../controllers/authController");
 
 const router = express.Router();
 
@@ -25,5 +25,29 @@ const router = express.Router();
  *       401: { description: Invalid credentials }
  */
 router.post("/login", login);
+
+/**
+ * @openapi
+ * /api/auth/register:
+ *   post:
+ *     tags: [Auth]
+ *     summary: Create a new account (Employee or Admin)
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required: [name, email, password]
+ *             properties:
+ *               name: { type: string }
+ *               email: { type: string }
+ *               password: { type: string }
+ *               role: { type: string, enum: [EMPLOYEE, ADMIN] }
+ *     responses:
+ *       201: { description: Account created, returns JWT + user profile }
+ *       400: { description: Missing fields, weak password, or email already exists }
+ */
+router.post("/register", register);
 
 module.exports = router;

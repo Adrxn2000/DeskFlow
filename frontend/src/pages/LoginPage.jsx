@@ -63,6 +63,9 @@ export default function LoginPage() {
         <p style={{ fontSize: 12, marginTop: 16, color: "var(--text-muted)" }}>
           Demo: employee@deskflow.com / admin@deskflow.com, password: password123
         </p>
+        <p style={{ fontSize: 13, marginTop: 12, textAlign: "center" }}>
+          Don't have an account? <a href="/register">Sign up</a>
+        </p>
       </div>
     </div>
   );
