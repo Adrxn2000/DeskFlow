@@ -39,3 +39,10 @@ Import `DeskFlow.postman_collection.json` into Postman. Run "Login - Employee" a
 | POST | /api/tickets | Employee only | Create a ticket |
 | GET | /api/tickets | Employee/Admin | Employees see own only; Admins see all |
 | PUT | /api/tickets/:id | Admin only | Update status |
+
+## Live Demo
+- Frontend: https://deskflowportal.netlify.app
+- Backend API: https://deskflow-backend-kojt.onrender.com
+- Swagger docs: https://deskflow-backend-kojt.onrender.com/api-docs
+
+Note: the backend is on Render's free tier and spins down after inactivity — the first request may take 30-60 seconds to wake up.
