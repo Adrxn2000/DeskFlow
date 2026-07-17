@@ -8,7 +8,10 @@ const options = {
       version: "1.0.0",
       description: "Internal IT Service Request Portal — REST API for ticket submission, listing, and resolution.",
     },
-    servers: [{ url: "http://localhost:5000" }],
+   servers: [
+  { url: "https://deskflow-backend-kojt.onrender.com", description: "Production" },
+  { url: "http://localhost:5000", description: "Local development" },
+],
     components: {
       securitySchemes: {
         bearerAuth: {
