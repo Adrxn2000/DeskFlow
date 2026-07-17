@@ -24,6 +24,14 @@ export function AuthProvider({ children }) {
     return profile;
   }
 
+  async function register(name, email, password, role) {
+  const { token, user: profile } = await authApi.register(name, email, password, role);
+  localStorage.setItem("deskflow_token", token);
+  localStorage.setItem("deskflow_user", JSON.stringify(profile));
+  setUser(profile);
+  return profile;
+}
+
   function logout() {
     localStorage.removeItem("deskflow_token");
     localStorage.removeItem("deskflow_user");
@@ -31,7 +39,7 @@ export function AuthProvider({ children }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
       {children}
     </AuthContext.Provider>
   );
