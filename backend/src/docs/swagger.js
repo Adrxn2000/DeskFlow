@@ -6,12 +6,12 @@ const options = {
     info: {
       title: "DeskFlow API",
       version: "1.0.0",
-      description: "Internal IT Service Request Portal — REST API for ticket submission, listing, and resolution.",
+      description: "Internal IT Service Request Portal - REST API for ticket submission, listing, and resolution.",
     },
-   servers: [
-  { url: "https://deskflow-backend-kojt.onrender.com", description: "Production" },
-  { url: "http://localhost:5000", description: "Local development" },
-],
+    servers: [
+      { url: "https://deskflow-backend-kojt.onrender.com", description: "Production" },
+      { url: "http://localhost:5000", description: "Local development" },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
