@@ -54,3 +54,8 @@ select, input, textarea { font-family: inherit; }
 }
 
 body { transition: background 0.2s ease, color 0.2s ease; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}

@@ -1,6 +1,7 @@
 import React from "react";
 import PriorityBadge from "./PriorityBadge";
 import StatusBadge from "./StatusBadge";
+import { relativeTime } from "../utils/formatTime";
 
 export default function TicketCard({ ticket, isAdmin, onStatusChange }) {
   return (
@@ -18,7 +19,7 @@ export default function TicketCard({ ticket, isAdmin, onStatusChange }) {
       <div style={styles.bottom}>
         <span style={{ fontSize: 12, color: "var(--text-muted)" }}>
           {isAdmin && ticket.createdBy ? `${ticket.createdBy.name} · ` : ""}
-          {new Date(ticket.createdAt).toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+          {relativeTime(ticket.createdAt)}
         </span>
 
         {isAdmin ? (

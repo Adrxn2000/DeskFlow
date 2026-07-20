@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import Sidebar from "../components/Sidebar";
+import StatCard from "../components/StatCard";
 import TicketForm from "../components/TicketForm";
 import TicketList from "../components/TicketList";
 import * as ticketApi from "../api/ticketApi";
@@ -36,6 +37,12 @@ export default function EmployeeDashboardPage() {
     }
   }
 
+  const counts = useMemo(() => ({
+    total: tickets.length,
+    open: tickets.filter((t) => t.status === "OPEN").length,
+    resolved: tickets.filter((t) => t.status === "RESOLVED").length,
+  }), [tickets]);
+
   return (
     <div style={{ display: "flex" }}>
       <Sidebar />
@@ -44,6 +51,12 @@ export default function EmployeeDashboardPage() {
         <p style={{ color: "var(--text-muted)", fontSize: 14, marginBottom: 24 }}>
           Track and submit your IT support requests.
         </p>
+
+        <div style={{ display: "flex", gap: 16, marginBottom: 28, maxWidth: 500 }}>
+          <StatCard label="Total" value={counts.total} color="var(--accent)" bg="var(--accent-soft)" />
+          <StatCard label="Open" value={counts.open} color="var(--open)" bg="var(--open-bg)" />
+          <StatCard label="Resolved" value={counts.resolved} color="var(--resolved)" bg="var(--resolved-bg)" />
+        </div>
 
         <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 24, alignItems: "start" }}>
           <TicketList tickets={tickets} loading={loading} error={error} isAdmin={false} />
