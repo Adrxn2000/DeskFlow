@@ -41,13 +41,13 @@ export default function TicketCard({ ticket, isAdmin, onStatusChange }) {
 
 const styles = {
   card: {
-    background: "var(--panel)", borderRadius: "var(--radius)",
+    background: "var(--panel)", borderRadius: "var(--radius)", color: "var(--text)",
     boxShadow: "var(--shadow)", padding: 18, marginBottom: 14,
   },
   top: { display: "flex", justifyContent: "space-between", gap: 16 },
   bottom: { display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 14 },
   select: {
     fontSize: 12, fontWeight: 600, border: "1px solid var(--border)",
-    borderRadius: 8, padding: "6px 10px", background: "var(--bg)",
+    borderRadius: 8, padding: "6px 10px", background: "var(--bg)", color: "var(--text)",
   },
 };

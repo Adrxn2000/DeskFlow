@@ -127,7 +127,7 @@ const styles = {
   toggleActive: { flex: 1, padding: "9px 0", border: "none", background: "var(--panel)", borderRadius: 8, fontSize: 13, fontWeight: 700, color: "var(--accent)", boxShadow: "0 1px 4px rgba(0,0,0,0.08)", cursor: "pointer" },
   field: { marginBottom: 16 },
   label: { display: "block", fontSize: 12, fontWeight: 700, color: "var(--text-muted)", marginBottom: 6, textTransform: "uppercase", letterSpacing: 0.3 },
-  input: { width: "100%", padding: "11px 13px", border: "1px solid var(--border)", borderRadius: 10, fontSize: 14, background: "var(--bg)" },
+  input:  { width: "100%", padding: "11px 13px", border: "1px solid var(--border)", borderRadius: 10, fontSize: 14, background: "var(--bg)", color: "var(--text)" },
   eyeBtn: { position: "absolute", right: 6, top: "50%", transform: "translateY(-50%)", background: "transparent", border: "none", fontSize: 15, cursor: "pointer", padding: 6 },
   error: { color: "var(--high)", fontSize: 13, marginTop: -4, marginBottom: 12 },
   submit: { width: "100%", padding: "12px 0", background: "var(--accent)", color: "#fff", border: "none", borderRadius: 10, fontWeight: 700, fontSize: 14, marginTop: 4, cursor: "pointer" },
