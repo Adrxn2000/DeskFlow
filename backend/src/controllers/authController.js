@@ -35,7 +35,7 @@ async function login(req, res) {
 
   async function register(req, res) {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ success: false, message: "Name, email, and password are required" });
@@ -50,7 +50,7 @@ async function login(req, res) {
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const validRole = role === "ADMIN" ? "ADMIN" : "EMPLOYEE";
+    const validRole = "EMPLOYEE";
 
     const user = await prisma.user.create({
       data: { name, email, password: hashedPassword, role: validRole },
