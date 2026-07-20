@@ -1,4 +1,4 @@
-# DeskFlow — Internal IT Service Request Portal
+# DeskFlow Internal IT Service Request Portal
 
 Ticketing system where Employees submit IT tickets and Admins triage and resolve them.
 
