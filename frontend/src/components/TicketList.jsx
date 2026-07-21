@@ -1,4 +1,3 @@
-import React from "react";
 import TicketCard from "./TicketCard";
 
 export default function TicketList({ tickets, loading, error, isAdmin, onStatusChange, emptyMessage }) {

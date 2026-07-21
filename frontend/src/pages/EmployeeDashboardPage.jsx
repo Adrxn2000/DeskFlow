@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { useEffect, useState, useCallback, useMemo } from "react";
 import Sidebar from "../components/Sidebar";
 import StatCard from "../components/StatCard";
 import TicketForm from "../components/TicketForm";
@@ -23,6 +23,7 @@ export default function EmployeeDashboardPage() {
     }
   }, []);
 
+  // eslint-disable-next-line react-hooks/set-state-in-effect -- intentional: fetch tickets on mount
   useEffect(() => { loadTickets(); }, [loadTickets]);
 
   async function handleCreate(form) {
