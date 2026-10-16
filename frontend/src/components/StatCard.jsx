@@ -1,4 +1,3 @@
-
 export default function StatCard({ label, value, color, bg }) {
   return (
     <div style={{
