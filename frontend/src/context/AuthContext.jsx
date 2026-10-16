@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import * as authApi from "../api/authApi";
 
 const AuthContext = createContext(null);
@@ -10,7 +10,10 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const storedUser = localStorage.getItem("deskflow_user");
     const storedToken = localStorage.getItem("deskflow_token");
+
+
     if (storedUser && storedToken) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- hydrating auth state from localStorage on mount, not derivable during render
       setUser(JSON.parse(storedUser));
     }
     setLoading(false);
@@ -44,7 +47,7 @@ export function AuthProvider({ children }) {
     </AuthContext.Provider>
   );
 }
-
+// eslint-disable-next-line react-refresh/only-export-components -- context + hook co-located intentionally, standard pattern
 export function useAuth() {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error("useAuth must be used within AuthProvider");
