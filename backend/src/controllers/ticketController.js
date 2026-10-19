@@ -1,11 +1,17 @@
 const prisma = require("../config/prisma");
 
+const VALID_PRIORITIES = ["LOW", "MEDIUM", "HIGH", "URGENT"];
+const VALID_STATUSES = ["OPEN", "IN_PROGRESS", "RESOLVED", "CLOSED"];
+
 async function createTicket(req, res) {
   try {
     const { title, description, priority } = req.body;
 
     if (!title || !description || !priority) {
       return res.status(400).json({ success: false, message: "Title, description, and priority are required" });
+    }
+    if (!VALID_PRIORITIES.includes(priority)) {
+      return res.status(400).json({ success: false, message: `Priority must be one of: ${VALID_PRIORITIES.join(", ")}` });
     }
 
     const ticket = await prisma.ticket.create({
@@ -51,6 +57,9 @@ async function updateTicketStatus(req, res) {
     }
     if (!status) {
       return res.status(400).json({ success: false, message: "Status is required" });
+    }
+    if (!VALID_STATUSES.includes(status)) {
+      return res.status(400).json({ success: false, message: `Status must be one of: ${VALID_STATUSES.join(", ")}` });
     }
 
     const existing = await prisma.ticket.findUnique({ where: { id } });
